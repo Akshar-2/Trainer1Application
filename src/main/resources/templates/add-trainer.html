@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Add Trainer</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+        body{display:flex;background:#f4f6fb;min-height:100vh}
+        .sidebar{width:230px;background:white;padding:25px 20px;box-shadow:2px 0 10px rgba(0,0,0,0.05);position:fixed;height:100vh}
+        .logo{font-size:24px;font-weight:800;color:#007bff;margin-bottom:30px}
+        .menu a{display:block;padding:11px 12px;color:#555;text-decoration:none;border-radius:8px;margin-bottom:6px}
+        .menu a.active{background:#eaf3ff;color:#007bff;font-weight:600}
+        .main{flex:1;margin-left:230px;padding:25px 30px}
+        .card{background:white;border-radius:12px;padding:30px;max-width:650px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+        .card h2{margin-bottom:5px}
+        .card p{color:#888;font-size:13px;margin-bottom:20px}
+        label{display:block;font-weight:600;margin:15px 0 6px;font-size:14px}
+        input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;background:#f9f9f9;outline:none}
+        .row{display:flex;gap:15px}
+        .row div{flex:1}
+        .btns{display:flex;gap:12px;margin-top:25px}
+        .btn-save{background:#007bff;color:white;padding:12px 25px;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer}
+        .btn-cancel{background:#eee;color:#333;padding:12px 25px;border-radius:8px;text-decoration:none;font-size:15px}
+    </style></head>
+<body>
+<div class="sidebar">
+    <div class="logo">TrainHub</div>
+    <div class="menu">
+        <a href="/trainers">📊 Dashboard</a>
+        <a href="/trainers" class="active">👨‍🏫 Trainers</a>
+        <a href="/trainers">📅 Schedule</a>
+        <a href="/trainers">🎓 Students</a>
+        <a href="/logout">🚪 Logout</a>
+    </div>
+</div>
+<div class="main">
+    <div class="card">
+        <h2>Add New Trainer</h2>
+        <p>Fill in the details to add a new trainer</p>
+        <form action="/trainers/add" method="post">
+            <label>Full Name *</label>
+            <input type="text" name="name" placeholder="e.g. Rahul Sharma" required>
+            <div class="row">
+                <div><label>Email *</label><input type="email" name="email" placeholder="rahul@example.com" required></div>
+                <div><label>Phone *</label><input type="text" name="phone" placeholder="+91 98765 43210" required></div>
+            </div>
+            <div class="row">
+                <div><label>Subject / Specialization *</label>
+                    <select name="specialization"><option>Java</option><option>Python</option><option>Web Development</option><option>Data Science</option><option>UI/UX</option></select></div>
+                <div><label>Status</label>
+                    <select name="status"><option>Active</option><option>Inactive</option></select></div>
+            </div>
+            <label>Bio</label>
+            <textarea name="bio" rows="3" placeholder="Short bio about trainer..."></textarea>
+            <div class="btns">
+                <button class="btn-save" type="submit">Save Trainer</button>
+                <a href="/trainers" class="btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

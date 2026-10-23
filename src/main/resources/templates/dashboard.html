@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Dashboard - TrainHub</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+        body{display:flex;background:#f4f6fb;min-height:100vh}
+        .sidebar{width:230px;background:white;padding:25px 20px;box-shadow:2px 0 10px rgba(0,0,0,0.05);position:fixed;height:100vh}
+        .logo{font-size:24px;font-weight:800;color:#007bff;margin-bottom:30px}
+        .menu a{display:block;padding:11px 12px;color:#555;text-decoration:none;border-radius:8px;margin-bottom:6px;font-size:15px}
+        .menu a.active,.menu a:hover{background:#eaf3ff;color:#007bff;font-weight:600}
+        .main{flex:1;margin-left:230px;padding:25px 30px}
+        .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
+        .top h1{font-size:26px}
+        .top p{color:#888;font-size:13px}
+        .search input{padding:10px 14px;border:1px solid #ddd;border-radius:20px;width:260px;outline:none}
+        .btn-add{background:#007bff;color:white;padding:11px 18px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px}
+        .card{background:white;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+        .card h3{margin-bottom:15px}
+        table{width:100%;border-collapse:collapse}
+        th{ text-align:left;padding:12px;color:#888;font-size:13px;border-bottom:1px solid #eee}
+        td{padding:14px 12px;border-bottom:1px solid #f0f0f0;font-size:14px}
+        .avatar{width:32px;height:32px;background:#007bff;color:white;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;margin-right:8px;font-size:14px}
+        .badge{padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600}
+        .active-badge{background:#e6f7e6;color:#1a8a1a}
+        .inactive-badge{background:#ffecec;color:#d33}
+        .action a{color:#007bff;text-decoration:none;margin-right:10px}
+        .action a.del{color:#e33}
+    </style></head>
+<body>
+<div class="sidebar">
+    <div class="logo">TrainHub</div>
+    <div class="menu">
+        <a href="/trainers" class="active">📊 Dashboard</a>
+        <a href="/trainers">👨‍🏫 Trainers</a>
+        <a href="/trainers">📅 Schedule</a>
+        <a href="/trainers">🎓 Students</a>
+        <a href="/logout">🚪 Logout</a>
+    </div>
+</div>
+<div class="main">
+    <div class="top">
+        <div><h1>Trainer Dashboard</h1><p>Welcome back, <span th:text="${username}">Admin</span></p></div>
+        <div style="display:flex;gap:12px;align-items:center">
+            <div class="search"><input type="text" placeholder="🔍 Search trainers..."></div>
+            <a href="/trainers/add" class="btn-add">+ Add Trainer</a>
+        </div>
+    </div>
+    <div class="card">
+        <h3>All Trainers (<span th:text="${#lists.size(trainers)}">0</span>)</h3>
+        <table>
+            <tr><th>Trainer</th><th>Email</th><th>Subject</th><th>Phone</th><th>Status</th><th>Action</th></tr>
+            <tr th:each="t, iter : ${trainers}">
+                <td><span class="avatar" th:text="${#strings.substring(t[0],0,1)}">A</span><b th:text="${t[0]}">Name</b></td>
+                <td th:text="${t[1]}">email</td>
+                <td th:text="${t[3]}">Subject</td>
+                <td th:text="${t[2]}">Phone</td>
+                <td><span class="badge active-badge" th:text="${t[5]}">Active</span></td>
+                <td class="action"><a th:href="@{'/trainers/delete/' + ${iter.index}}">Delete</a></td>
+            </tr>
+        </table>
+        <p th:if="${#lists.isEmpty(trainers)}" style="text-align:center;padding:20px;color:#888">No trainers yet. Click + Add Trainer</p>
+    </div>
+</div>
+</body>
+</html>
